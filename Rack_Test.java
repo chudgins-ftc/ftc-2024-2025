@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-dsafsdfsdfasdfwfeglgsklj;l
 @TeleOp(name="Rack Test", group="2024-2025")
 public class Rack_Test extends LinearOpMode {
 
