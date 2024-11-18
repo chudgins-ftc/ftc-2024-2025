@@ -34,6 +34,17 @@ public class Rack_Test extends LinearOpMode {
 
         Rack_Servo = hardwareMap.get(Servo.class, "Rack_Servo");
 
+		double max = 0.0;
+
+        double axial   = 0.0;
+        double lateral = 0.0;
+        double yaw     = 0.0;
+
+	double leftFrontPower  = axial + lateral + yaw;
+        double rightFrontPower = axial - lateral - yaw;
+        double leftBackPower   = axial - lateral + yaw;
+        double rightBackPower  = axial + lateral - yaw;
+
 		//Drive Test
         //FL_Motor.setDirection(DcMotor.Direction.REVERSE);
         //BL_Motor.setDirection(DcMotor.Direction.REVERSE);
@@ -49,16 +60,15 @@ public class Rack_Test extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            double max;
 
-            double axial   = -gamepad1.left_stick_y;
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
+        	axial   = -gamepad1.left_stick_y;
+        	lateral =  gamepad1.left_stick_x;
+        	yaw     =  gamepad1.right_stick_x;
 			
-            double leftFrontPower  = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial - lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
+            leftFrontPower  = axial + lateral + yaw;
+            rightFrontPower = axial - lateral - yaw;
+            leftBackPower   = axial - lateral + yaw;
+            rightBackPower  = axial + lateral - yaw;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -100,5 +110,10 @@ public class Rack_Test extends LinearOpMode {
             telemetry.addData("Rack_Pos", "%4.2f", Rack_Pos);
             telemetry.update();
         }
+	
+	public void Esting() {
+		
+	}
+	
     }}
 
