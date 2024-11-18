@@ -111,9 +111,5 @@ public class Rack_Test extends LinearOpMode {
             telemetry.update();
         }
 	
-	public void Esting() {
-		
-	}
-	
     }}
 
