@@ -19,10 +19,11 @@ public class Arm_Test extends LinearOpMode {
     public DcMotor FR_Motor = null;
 
 	public DcMotor Rack_Motor = null;
+	public double Rack_Power = 0.0;
 	public double Rack_Pos = 0.0;
-	public double Rack_Upper = 0.0;
+	public double Rack_Upper = 1150.0;
 	public double Rack_Lower = 0.0;
-	public double Rack_Pad = 0.0;
+	public double Rack_Pad = 300.0;
 
 	public DcMotor Arm_Motor = null;
 	public double Arm_Pos = 0.0;
@@ -85,7 +86,18 @@ public class Arm_Test extends LinearOpMode {
 			//Update Sensors
 			Rack_Pos = Rack_Motor.getCurrentPosition();
 			Arm_Pos = Arm_Motor.getCurrentPosition();
+
+			//Calculate Rack Power
+			Rack_Power = gamepad1.right_trigger;
+			if (Rack_Pos < Rack_Lower + Rack_Pad){
+				Rack_Power = 0.0;
+			}
+
+			if (Rack_Pos > Rack_Upper - Rack_Pad){
+				Rack_Power = 0.0;
+			}
 			
+			//Calculate Drive Power
         	axial   = -gamepad1.left_stick_y;
         	lateral =  gamepad1.left_stick_x;
         	yaw     =  gamepad1.right_stick_x;
@@ -113,6 +125,9 @@ public class Arm_Test extends LinearOpMode {
             FR_Motor.setPower(rightFrontPower);
             BL_Motor.setPower(leftBackPower);
             BR_Motor.setPower(rightBackPower);
+
+			// Send power to rack motor
+			Rack_Motor.setPower(Rack_Power);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
