@@ -19,11 +19,13 @@ public class Arm_Test extends LinearOpMode {
     public DcMotor FR_Motor = null;
 
 	public DcMotor Rack_Motor = null;
+	public double Rack_Pos = 0.0;
+
 	public DcMotor Arm_Motor = null;
+	public double Arm_Pos = 0.0;
 
     public Servo Hand_Servo = null;
 
-    public double Rack_Pos = 0.0;
     public double Rack_inc = 0.05;
     public boolean dpad_latch_right = false;
     public boolean dpad_latch_left = false;
@@ -40,9 +42,9 @@ public class Arm_Test extends LinearOpMode {
 		Rack_Motor = hardwareMap.get(DcMotor.class, "Rack Motor");
 	    Arm_Motor = hardwareMap.get(DcMotor.class, "Arm Motor");
 
-        Hand_Servo = hardwareMap.get(Servo.class, "Hand_Sevo");
+        Hand_Servo = hardwareMap.get(Servo.class, "Hand Servo");
 
-	double max = 0.0;
+		double max = 0.0;
 
         double axial   = 0.0;
         double lateral = 0.0;
@@ -69,6 +71,10 @@ public class Arm_Test extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
+			//Update Sensors
+			Rack_Pos = Rack_Motor.getCurrentPosition();
+			Arm_Pos = Arm_Motor.getCurrentPosition();
+			
         	axial   = -gamepad1.left_stick_y;
         	lateral =  gamepad1.left_stick_x;
         	yaw     =  gamepad1.right_stick_x;
@@ -97,25 +103,13 @@ public class Arm_Test extends LinearOpMode {
             BL_Motor.setPower(leftBackPower);
             BR_Motor.setPower(rightBackPower);
 
-            // Calculate Servo Position
-            if(!dpad_latch_right && gamepad1.dpad_right && Rack_Pos < 1.0){
-                Rack_Pos = Rack_Pos + Rack_inc;
-            }
-            dpad_latch_right = gamepad1.dpad_right;
-
-            if(!dpad_latch_left && gamepad1.dpad_left && Rack_Pos > 0.0){
-                Rack_Pos = Rack_Pos - Rack_inc;
-            }
-            dpad_latch_left = gamepad1.dpad_left;
-
-            // Set Servo Position
-            Rack_Servo.setPosition(Rack_Pos);
-
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("Rack_Pos", "%4.2f", Rack_Pos);
+			telemetry.addData("Arm_Pos", "%4.2f", Arm_Pos);
+
             telemetry.update();
         }
 	
