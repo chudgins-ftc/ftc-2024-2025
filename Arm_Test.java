@@ -7,17 +7,21 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Rack Test", group="2024-2025")
-public class Rack_Test extends LinearOpMode {
+@TeleOp(name="Arm Test", group="2024-2025")
+public class Arm_Test extends LinearOpMode {
 
-    // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
+
+	//Declare Motors and Servos
     public DcMotor BL_Motor = null;
     public DcMotor BR_Motor = null;
     public DcMotor FL_Motor = null;
     public DcMotor FR_Motor = null;
 
-    public Servo Rack_Servo = null;
+	public DcMotor Rack_Motor = null;
+	public DcMotor Arm_Motor = null;
+
+    public Servo Hand_Servo = null;
 
     public double Rack_Pos = 0.0;
     public double Rack_inc = 0.05;
@@ -27,14 +31,18 @@ public class Rack_Test extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+	// Map Motors and Servos
         BR_Motor = hardwareMap.get(DcMotor.class, "BR Wheel Motor");
         FL_Motor = hardwareMap.get(DcMotor.class, "FL Wheel Motor");
         BL_Motor = hardwareMap.get(DcMotor.class, "BL Wheel Motor");
         FR_Motor = hardwareMap.get(DcMotor.class, "FR Wheel Motor");
 
-        Rack_Servo = hardwareMap.get(Servo.class, "Rack_Servo");
+		Rack_Motor = hardwareMap.get(DcMotor.class, "Rack Motor");
+	    Arm_Motor = hardwareMap.get(DcMotor.class, "Arm Motor");
 
-		double max = 0.0;
+        Hand_Servo = hardwareMap.get(Servo.class, "Hand_Sevo");
+
+	double max = 0.0;
 
         double axial   = 0.0;
         double lateral = 0.0;
