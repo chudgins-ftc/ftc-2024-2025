@@ -20,9 +20,15 @@ public class Arm_Test extends LinearOpMode {
 
 	public DcMotor Rack_Motor = null;
 	public double Rack_Pos = 0.0;
+	public double Rack_Upper = 0.0;
+	public double Rack_Lower = 0.0;
+	public double Rack_Pad = 0.0;
 
 	public DcMotor Arm_Motor = null;
 	public double Arm_Pos = 0.0;
+	public double Arm_Upper = 0.0;
+	public double Arm_Lower = 0.0;
+	public double Arm_Pad = 0.0;
 
     public Servo Hand_Servo = null;
 
@@ -40,7 +46,12 @@ public class Arm_Test extends LinearOpMode {
         FR_Motor = hardwareMap.get(DcMotor.class, "FR Wheel Motor");
 
 		Rack_Motor = hardwareMap.get(DcMotor.class, "Rack Motor");
+		Rack_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset the motor encoder
+		Rack_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); 
+		
 	    Arm_Motor = hardwareMap.get(DcMotor.class, "Arm Motor");
+		Arm_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset the motor encoder
+		Arm_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); 
 
         Hand_Servo = hardwareMap.get(Servo.class, "Hand Servo");
 
